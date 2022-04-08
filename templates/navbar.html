@@ -1,0 +1,52 @@
+{% load category_tags %}
+{% category_tags as categories %}
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+  <div class="container">
+    <a class="navbar-brand" href="{% url 'home_url' %}">MVT Blog</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'home_url' %}" aria-current="page" href="#">Ana Sayfa</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'contact_url' %}">İletişim</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Kategoriler
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            {% for category in categories %}
+              <li><a class="dropdown-item" href="{% url 'category_url' slug=category.slug %}">{{ category.title }}</a></li>
+            {% endfor %}
+          </ul>
+        </li>
+        {% if request.user.is_authenticated %}
+            {% if request.user.is_staff %}
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'admin:index' %}"> Admin </a>
+              </li>
+            {% endif %}
+        {% else %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'sign_up_url' %}"> Giriş yap </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'sign_up_url' %}"> Kayıt ol </a>
+          </li>
+        {% endif %}
+      </ul>
+
+      <form class="d-flex" action="{% url 'home_url' %}">
+        <input class="form-control me-2" type="search" placeholder="Ara" aria-label="Search" name="sq">
+        <button class="btn btn-outline-success" type="submit"> Ara </button>
+      </form>
+
+    </div>
+  </div>
+</nav>

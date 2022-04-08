@@ -1,0 +1,31 @@
+{% load static %}
+
+<div class="card mb-4">
+  <div class="card-header">User Ops</div>
+  <div class="list-group">
+    {% if request.user.is_staff %}
+      <a href="{% url 'add_post_url' %}" class="list-group-item list-group-item-action" aria-current="true">
+        Yeni Gönderi
+      </a>
+      <a href="{% url 'my_posts_url' %}" class="list-group-item list-group-item-action">
+        Gönderilerim
+      </a>
+      <a href="{% url 'my_comments_url' %}" class="list-group-item list-group-item-action">
+        Yaptığım Yorumlar
+      </a>
+      <a href="{% url 'comments_to_me_url' %}" class="list-group-item list-group-item-action">
+        Bana Yapılan Yorumlar
+      </a>
+    {% endif %}
+    <a href="{% url 'update_user_url' %}" class="list-group-item list-group-item-action">
+      Profil düzenle
+    </a>
+    <a href="{% url 'change_pwd_url' %}" class="list-group-item list-group-item-action">
+      Şifre işlemleri
+    </a>
+    <a href="{% url 'sign_out_url' %}" class="list-group-item list-group-item-action">
+      Çıkış
+    </a>
+  </div>
+</div>
+<script src="{% static 'js/user_ops.js' %}"></script>

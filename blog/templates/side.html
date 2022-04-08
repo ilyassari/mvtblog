@@ -1,0 +1,15 @@
+
+<!-- Search widget-->
+{% include "side_search.html" %}
+
+{% if request.user.is_authenticated %}
+  <!-- User Ops-->
+  {% include "side_user_ops.html" %}
+{% else %}
+  <!-- Login widget-->
+  {% include "side_login.html" %}
+{% endif %}
+<!-- Categories widget-->
+{% include "side_categories.html" %}
+<!-- Side widget-->
+{% include "side_sample.html" %}

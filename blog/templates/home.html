@@ -1,0 +1,68 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block _title %}
+    Home
+{% endblock %}
+
+
+
+{% block _navbar %}
+  {% include "navbar.html" %}
+{% endblock %}
+
+
+{% block _header %}
+  {% include "header.html" %}
+{% endblock %}
+
+
+{% block _content %}
+
+    <!-- Featured blog post-->
+    {% if featured %}
+    <div class="card mb-4">
+      <div class="row g-0">
+        <div class="col-md-5">
+          {% if featured.image %}
+          <img src="{{ featured.image.url }}" class="img-fluid rounded-start" alt="{{ featured.title | title }}">
+          {% endif %}
+        </div>
+        <div class="col-md-7">
+          <div class="card-body">
+            <div class="small text-muted"> {{featured.created_date | timesince}} önce</div>
+            <h2 class="card-title">{{ featured.title | title }}</h2>
+            <p class="card-text"> {{ featured.content | striptags | safe | truncatewords:30 }}</p>
+            <a class="btn btn-primary btn-sm" href="{% url 'post_url' slug=featured.slug %}"> Devamını oku →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+
+    <!-- Nested row for non-featured blog posts-->
+    {% include "post_tumbnail.html" %}
+
+
+    <!-- Pagination-->
+    {% if posts.has_other_pages %}
+      {% with page_object=posts %}
+        {% include "pagination.html" %}
+      {% endwith %}
+    {% endif %}
+
+{% endblock %}
+
+
+
+{% block _side_widgets %}
+  {% include "side.html" %}
+{% endblock %}
+
+
+
+{% block _footer %}
+  {% include 'footer.html' %}
+{% endblock %}

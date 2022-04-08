@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block _title %}
+  {{ post.title }}
+{% endblock %}
+
+
+{% block _navbar %}
+  {% include "navbar.html" %}
+{% endblock %}
+
+
+{% block _header %}
+  {% include "header.html" %}
+{% endblock %}
+
+
+{% block _content %}
+  {% include "post_content.html" %}
+  {% include "post_comments.html" %}
+{% endblock %}
+
+
+{% block _side_widgets %}
+  {% include "side.html" %}
+{% endblock %}
+
+
+{% block _footer %}
+  {% include 'footer.html' %}
+{% endblock %}

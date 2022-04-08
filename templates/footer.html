@@ -1,0 +1,14 @@
+{% load social_tags %}
+{% social_tags as socials %}
+
+
+<footer class="py-5 mt-5 bg-dark">
+    <div class="container"><p class="m-0 text-center text-white">Copyright &copy; İlyas Sarı 2022</p></div>
+    <div class="container text-center">
+      {% for social in socials %}
+        <a href="{{ social.url }}" class="twitter text-decoration-none m-1">
+          <i class="fa {{ social.fa_class }} fa-inverse" > </i>
+         </a>
+      {% endfor %}
+    </div>
+</footer>

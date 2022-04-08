@@ -1,0 +1,21 @@
+{% load static %}
+{% load banner_tags %}
+{% banner_tags as banners %}
+
+<div id="carouselExampleSlidesOnly" class="carousel slide carousel-fade" data-bs-ride="carousel">
+  <div class="carousel-inner">
+    {% for banner in banners %}
+      <div class="carousel-item">
+        <a href="{{ banner.url }}">
+          <img src="{{ banner.image.url }}" class="d-block w-100" alt="{{ banner.title }}">
+        </a>
+        <div class="carousel-caption d-none d-md-block">
+          <h5> {{ banner.title }} </h5>
+          <p> {{ banner.description }} </p>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+<script src="{% static 'js/banner.js' %}"></script>

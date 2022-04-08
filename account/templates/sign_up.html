@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+
+{% block _title %}
+   Kayıt Ol
+{% endblock %}
+
+
+
+{% block _navbar %}
+  {% include "navbar.html" %}
+{% endblock %}
+
+
+{% block _header %}
+  {% include "header.html" %}
+{% endblock %}
+
+
+{% block _content %}
+
+
+  <div class="">
+
+    <h5>Kullanıcı Kayıt Formu </h5>
+    <hr>
+    <form class="" enctype="multipart/form-data" method="post">
+      {% csrf_token %}
+      {{ form | crispy  }}
+      <input type="submit" class="btn btn-primary mt-4 mb-4" value="Onayla">
+    </form>
+
+  </div>
+
+
+{% endblock %}
+
+
+
+{% block _side_widgets %}
+  {% include "side.html" %}
+{% endblock %}
+
+
+
+{% block _footer %}
+  {% include 'footer.html' %}
+{% endblock %}

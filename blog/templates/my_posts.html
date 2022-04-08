@@ -1,0 +1,95 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block _title %}
+    {{ request.user.username }} | Gönderiler
+{% endblock %}
+
+
+
+{% block _navbar %}
+  {% include "navbar.html" %}
+{% endblock %}
+
+
+{% block _header %}
+  {% include "header.html" %}
+{% endblock %}
+
+
+
+{% block _content %}
+
+
+    <!-- Nested row for non-featured blog posts-->
+
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">id</th>
+          <th scope="col">Title</th>
+          <th scope="col">Categories</th>
+          <th scope="col">Edit</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for post in posts %}
+          <tr>
+            <th scope="row"> {{ post.id }} </th>
+            <td> {{ post.title }} </td>
+            <td>
+                {% for category in post.categories.all %}
+                  {{ category.title }},
+                {% endfor %}
+            </td>
+            <td>
+              <a href="{% url 'update_post_url' slug=post.slug %}">
+                <span title="edit">
+                  <i class="bi bi-pencil-square"></i>
+                </span>
+              </a>
+              <a class="text-decoration-none" href="{% url 'delete_post_url' slug=post.slug %}">
+                <span title="delete post">
+                  <i class="bi bi-trash3"></i>
+                </span>
+              </a>
+              {% if not post.is_active %}
+                <span title="make active">
+                  <i class="bi bi-lock"></i>
+                </span>
+              {% else %}
+                <span title="make inactive">
+                  <i class="bi bi-unlock"></i>
+                </span>
+              {% endif %}
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+
+    <!-- Pagination-->
+    {% if posts.has_other_pages %}
+      {% with page_object=posts %}
+        {% include "pagination.html" %}
+      {% endwith %}
+    {% endif %}
+
+
+
+{% endblock %}
+
+
+
+{% block _side_widgets %}
+  {% include "side.html" %}
+{% endblock %}
+
+
+
+{% block _footer %}
+  {% include 'footer.html' %}
+{% endblock %}

@@ -1,0 +1,78 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block _title %}
+    {{ request.user.username }} | Yorumlar
+{% endblock %}
+
+
+{% block _navbar %}
+  {% include "navbar.html" %}
+{% endblock %}
+
+
+{% block _header %}
+  {% include "header.html" %}
+{% endblock %}
+
+
+{% block _content %}
+
+    <h3> {{ description }}</h3>
+
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">id</th>
+          <th scope="col">Yazan</th>
+          <th scope="col">Gönderi</th>
+          <th scope="col">İçerik</th>
+          <th scope="col">Düzenle</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for comment in comments %}
+          <tr>
+            <th scope="row"> {{ comment.id }} </th>
+            <td> {{ comment.author.username }} </td>
+            <td> {{ comment.post.title | title }} </td>
+            <td> {{ comment.content | striptags | safe | truncatewords:10 }} }} </td>
+            <td>
+              <a href="#">
+                <span title="edit">
+                  <i class="bi bi-pencil-square"></i>
+                </span>
+              </a>
+              <a class="text-decoration-none" href="{% url 'delete_comment_url' id=comment.id %}">
+                <span title="delete post">
+                  <i class="bi bi-trash3"></i>
+                </span>
+              </a>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+
+    <!-- Pagination-->
+    {% if comments.has_other_pages %}
+      {% with page_object=comments %}
+        {% include "pagination.html" %}
+      {% endwith %}
+    {% endif %}
+
+
+{% endblock %}
+
+
+{% block _side_widgets %}
+  {% include "side.html" %}
+{% endblock %}
+
+
+{% block _footer %}
+  {% include 'footer.html' %}
+{% endblock %}

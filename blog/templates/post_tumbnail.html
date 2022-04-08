@@ -1,0 +1,28 @@
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+    {% for post in posts %}
+    <div class="col">
+      <div class="card">
+        {% if post.image %}
+          <a href="#!"><img class="card-img-top" src="{{ post.image.url }}" alt="{{ featured.title | title }}" /></a>
+        {% endif %}
+          <div class="card-body">
+              <div class="small text-muted"> {{post.created_date | timesince}} önce </div>
+              <h3 class="card-title h4"> {{ post.title | title }} </h3>
+              {% if post.image %}
+                <p class="card-text"> {{ post.content | striptags | safe | truncatewords:16 }} </p>
+              {% else %}
+                <p class="card-text"> {{ post.content | striptags | safe | truncatewords:50 }} </p>
+              {% endif %}
+              <a class="btn btn-primary btn-sm" href="{% url 'post_url' slug=post.slug %}">Devamını oku →</a>
+          </div>
+      </div>
+    </div>
+    {% empty %}
+    <div class="col">
+      <div class="mb-4 mx-3">
+        <p class="card-text">Başka yazı eklenmemiş. </p>
+      </div>
+    </div>
+    {% endfor %}
+
+  </div>

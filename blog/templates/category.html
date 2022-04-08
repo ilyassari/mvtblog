@@ -1,0 +1,49 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block _title %}
+    {{ category }}
+{% endblock %}
+
+
+
+{% block _navbar %}
+  {% include "navbar.html" %}
+{% endblock %}
+
+
+{% block _header %}
+  {% include "header.html" %}
+{% endblock %}
+
+
+{% block _content %}
+
+    <!-- Nested row for non-featured blog posts-->
+
+    {% include "post_tumbnail.html" %}
+
+
+    <!-- Pagination-->
+    {% if posts.has_other_pages %}
+      {% with page_object=posts %}
+        {% include "pagination.html" %}
+      {% endwith %}
+    {% endif %}
+
+
+{% endblock %}
+
+
+
+{% block _side_widgets %}
+  {% include "side.html" %}
+{% endblock %}
+
+
+
+{% block _footer %}
+  {% include 'footer.html' %}
+{% endblock %}
